@@ -34,8 +34,7 @@ A graphical user interface tool for modifying TJA files and audio source speed f
 1. **Clone or download the source code**
    ```bash
    # If using git
-   git clone <repository-url>
-   cd taikojiro292
+   git clone https://github.com/GanYiZhong/TJA-Speed-Changer
    ```
 
 2. **Install Python dependencies**
