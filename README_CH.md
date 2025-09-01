@@ -2,6 +2,8 @@
 TJA Speed Changer GUI 是一個用於太鼓譜面（TJA）與音源變速的圖形化工具，透過介面操作即可同時調整譜面參數與音訊速度並輸出 OGG 檔案。
 本工具以 Python 的 Tkinter 建構 GUI，並整合 FFmpeg 的 atempo 音訊濾鏡，達成變速同時維持音高的處理流程。
 
+[ENGLISH README.MD](https://github.com/GanYiZhong/TJA-Speed-Changer/blob/main/README_CH.md)
+
 ## 功能
 - GUI 介面：以 Tkinter 提供易用的視覺化操作，無需撰寫指令即可完成變速與轉檔。  
 - 多語系支援：提供英文、繁體中文與日文（日本語），介面可即時切換顯示語言。  
