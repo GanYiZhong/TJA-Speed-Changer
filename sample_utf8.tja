@@ -1,0 +1,11 @@
+TITLE:測試歌曲
+SUBTITLE:編碼測試
+BPM:120
+WAVE:test.ogg
+
+#START
+
+1010,
+1010,
+
+#END
