@@ -1,14 +1,18 @@
-# TJA Speed Changer GUI Requirements
-
-# GUI framework with drag & drop support (optional but recommended)
-tkinterdnd2>=0.3.0
+# TJA Speed Changer GUI Final Requirements
 
 # For packaging
 pyinstaller>=5.0
 
-# For image handling (logo display - optional but recommended)
-Pillow>=8.0.0
+# GUI framework with drag & drop support
+tkinterdnd2>=0.3.0
 
-# Note: tkinterdnd2 and Pillow are optional - the application will work without them
-# tkinterdnd2: reduced drag & drop functionality without it
-# Pillow: text logo fallback without it
+# For image handling (logo display)
+Pillow>=9.0.0
+
+# For character encoding detection (optional enhancement)
+chardet>=5.0.0
+
+# Note: Core functionality works with just Python standard library
+# tkinterdnd2: enables drag & drop TJA files
+# Pillow: enables logo image display (text fallback available)
+# chardet: improves encoding detection accuracy

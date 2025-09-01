@@ -16,12 +16,14 @@ def check_requirements():
     
     # Check if Python packages are installed
     try:
-        import tkinterdnd2
         import PyInstaller
+        import tkinterdnd2
+        from PIL import Image
         print("✓ Required Python packages are installed")
     except ImportError as e:
         print(f"✗ Missing Python package: {e}")
-        print("Please install requirements: pip install -r requirements.txt")
+        print("Please install requirements:")
+        print("pip install pyinstaller tkinterdnd2 pillow")
         return False
     
     # Check if FFmpeg exists
@@ -33,25 +35,21 @@ def check_requirements():
         print("✓ FFmpeg found")
     
     # Check if GUI script exists
-    if not Path("TJASpeedChangerGUI.py").exists():
-        print("✗ TJASpeedChangerGUI.py not found")
+    if not Path("TJASpeedChangerGUI_Final.py").exists():
+        print("✗ TJASpeedChangerGUI_Final.py not found")
         return False
     else:
         print("✓ Main GUI script found")
     
-    # Check if language files exist
-    languages_dir = Path("languages")
-    if not languages_dir.exists():
-        print("✗ Languages directory not found")
+    # Check if logo file exists
+    if not Path("LOGO_BLACK_TRANS.png").exists():
+        print("✗ Logo file not found")
         return False
+    else:
+        print("✓ Logo file found")
     
-    required_langs = ["en.json", "zh-tw.json", "ja.json"]
-    for lang_file in required_langs:
-        if not (languages_dir / lang_file).exists():
-            print(f"✗ Language file not found: {lang_file}")
-            return False
-    
-    print("✓ Language files found")
+    # Languages are built-in, no external files needed
+    print("✓ Built-in language support ready")
     print("All requirements met!")
     return True
 
@@ -78,8 +76,8 @@ def create_version_info():
 # http://msdn.microsoft.com/en-us/library/ms646997.aspx
 VSVersionInfo(
   ffi=FixedFileInfo(
-    filevers=(1,0,0,0),
-    prodvers=(1,0,0,0),
+    filevers=(2,0,0,0),
+    prodvers=(2,0,0,0),
     mask=0x3f,
     flags=0x0,
     OS=0x40004,
@@ -92,14 +90,14 @@ VSVersionInfo(
       [
       StringTable(
         u'040904B0',
-        [StringStruct(u'CompanyName', u'TJA Speed Changer'),
-        StringStruct(u'FileDescription', u'TJA Speed Changer GUI'),
-        StringStruct(u'FileVersion', u'1.0.0.0'),
-        StringStruct(u'InternalName', u'TJASpeedChangerGUI'),
-        StringStruct(u'LegalCopyright', u'Open Source'),
+        [StringStruct(u'CompanyName', u'ZhongTaiko Studios'),
+        StringStruct(u'FileDescription', u'TJA Speed Changer GUI - Final Version'),
+        StringStruct(u'FileVersion', u'2.0.0.0'),
+        StringStruct(u'InternalName', u'TJASpeedChangerGUI_Final'),
+        StringStruct(u'LegalCopyright', u'© ZhongTaiko Studios'),
         StringStruct(u'OriginalFilename', u'TJASpeedChangerGUI.exe'),
-        StringStruct(u'ProductName', u'TJA Speed Changer'),
-        StringStruct(u'ProductVersion', u'1.0.0.0')])
+        StringStruct(u'ProductName', u'TJA Speed Changer Final'),
+        StringStruct(u'ProductVersion', u'2.0.0.0')])
       ]),
     VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
@@ -126,11 +124,13 @@ def build_executable():
         "--icon=icon.ico" if Path("icon.ico").exists() else "",  # Icon if exists
         "--version-file=version_info.txt",  # Version info
         "--add-binary=ffmpeg.exe;.",    # Include FFmpeg
-        "--add-data=languages;languages",  # Include language files
+        "--add-data=LOGO_BLACK_TRANS.png;.",  # Include logo file
         "--hidden-import=tkinterdnd2",  # Ensure tkinterdnd2 is included
         "--hidden-import=tkinterdnd2.tkdnd",
+        "--hidden-import=PIL",          # Ensure PIL is included
+        "--hidden-import=PIL._tkinter_finder",
         "--clean",                      # Clean cache
-        "TJASpeedChangerGUI.py"        # Main script
+        "TJASpeedChangerGUI_Final.py"        # Main script
     ]
     
     # Remove empty strings from command
@@ -162,16 +162,6 @@ def post_build_tasks():
     if exe_path.exists():
         print(f"✓ Executable created: {exe_path.absolute()}")
         print(f"✓ File size: {exe_path.stat().st_size / 1024 / 1024:.1f} MB")
-        
-        # Test the executable
-        print("Testing executable...")
-        try:
-            result = subprocess.run([str(exe_path), "--help"], 
-                                  capture_output=True, text=True, timeout=5)
-            # Note: GUI apps might not respond to --help, so we just check if it starts
-            print("✓ Executable test completed")
-        except Exception as e:
-            print(f"⚠ Executable test warning: {e}")
         
         return True
     else:
@@ -207,10 +197,12 @@ def main():
     print(f"Executable location: {Path('dist/TJASpeedChangerGUI.exe').absolute()}")
     print("\nYou can now distribute the executable along with any sample files.")
     print("The executable includes:")
-    print("- GUI application")
-    print("- FFmpeg for audio processing") 
-    print("- Multi-language support (EN/ZH-TW/JA)")
-    print("- Drag & drop file support")
+    print("- GUI application with improved encoding support")
+    print("- FFmpeg for audio processing and OGG conversion") 
+    print("- Built-in multi-language support (EN/ZH-TW/JA)")
+    print("- ZhongTaiko Studios branding and logo")
+    print("- Big5/Shift-JIS encoding preservation")
+    print("- Drag & drop TJA file support")
 
 if __name__ == '__main__':
     main()
