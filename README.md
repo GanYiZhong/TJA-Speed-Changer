@@ -1,8 +1,8 @@
 # TJA Speed Changer GUI
 
-A graphical user interface tool for modifying TJA files and audio source speed for Taiko no Tatsufin.
+A graphical user interface tool for modifying TJA files and audio source speed for Taiko no Tatsujin.
 
-[中文說明]([https://pages.github.com/](https://github.com/GanYiZhong/TJA-Speed-Changer/blob/main/README_CH.md))
+[中文說明](https://github.com/GanYiZhong/TJA-Speed-Changer/blob/main/README_CH.md)
 
 ## Features
 
